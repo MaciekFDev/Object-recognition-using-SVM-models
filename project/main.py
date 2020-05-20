@@ -4,6 +4,8 @@ from matplotlib import pyplot as plt
 
 training_images = []     # half of pictures of each object
 testing_images = []      # second half, remaining pictures
+edges_training = []      # analogic variables, but for edges for particular images
+edges_testing = []
 nr_array = np.arange(72) # array with numbers for randomizing images in both sets
 obj = 'obj'              # variable responsible for navigation between objects' images
                          # Path to folder containing objects' images at local repository
@@ -23,16 +25,18 @@ for i in range(1,11,1):         # loop over particular objects' folders
         objpath_train = path + obj_nr + '/' + obj_nr + '__' + str(training_images_ids[k]) + '.png'
         objpath_test = path + obj_nr + '/' + obj_nr + '__' + str(testing_images_ids[k]) + '.png'
 
-        # Loading images into separate sets (honouring labels)
+        # Loading images into separate sets (honouring labels - number of object)
         training_image = cv2.imread(objpath_train)
         training_images.append([training_image, i])
         testing_image = cv2.imread(objpath_test)
         testing_images.append([testing_image, i])
 
     # Calculating edges for each image
-
+    for k in range(36):
+        edges_training.append([cv2.Canny(training_images[k][0],100,200), i])
+        edges_testing.append([cv2.Canny(testing_images[k][0],100,200), i])
 
     # Calculating Hu's invariant values for each image
+    for k in range(36):
 
-    # Combining data with objects' labels (obj_nr)
 
