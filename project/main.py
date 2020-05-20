@@ -11,7 +11,7 @@ obj = 'obj'              # variable responsible for navigation between objects' 
                          # Path to folder containing objects' images at local repository
 path = 'C:/Users/Veteran/Object-recognition-using-SVM-models/'
 
-
+# Feature extraction from images
 for i in range(1,11,1):         # loop over particular objects' folders
     obj_nr = obj + str(i)       # storing object's number (label)
     np.random.shuffle(nr_array) # randomizing images of particular object
@@ -38,5 +38,5 @@ for i in range(1,11,1):         # loop over particular objects' folders
 
     # Calculating Hu's invariant values for each image
     for k in range(36):
-
+        
 
