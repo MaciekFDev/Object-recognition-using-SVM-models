@@ -1,6 +1,8 @@
 import numpy as np
 import cv2
 from matplotlib import pyplot as plt
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score
 
 training_images = []     # half of pictures of each object
 testing_images = []      # second half, remaining pictures
@@ -14,7 +16,7 @@ obj = 'obj'              # variable responsible for navigation between objects' 
 path = 'C:/Users/Veteran/Object-recognition-using-SVM-models/'
 
 # Feature extraction from images
-for i in range(1,11,1):         # loop over particular objects' folders
+for i in range(1,21,1):         # loop over particular objects' folders
     obj_nr = obj + str(i)       # storing object's number (label)
     np.random.shuffle(nr_array) # randomizing images of particular object
 
@@ -27,7 +29,7 @@ for i in range(1,11,1):         # loop over particular objects' folders
         objpath_train = path + obj_nr + '/' + obj_nr + '__' + str(training_images_ids[k]) + '.png'
         objpath_test = path + obj_nr + '/' + obj_nr + '__' + str(testing_images_ids[k]) + '.png'
 
-        # Loading images into separate sets (honouring labels - number of object)
+        # Loading images into separate sets (honouring labels - numbers of objects)
         training_image = cv2.imread(objpath_train)
         training_images.append([training_image, i])
         testing_image = cv2.imread(objpath_test)
@@ -47,7 +49,21 @@ for i in range(1,11,1):         # loop over particular objects' folders
         temp = np.append(temp, [i])
         Hu_testing.append(temp)
 
+# Classification part
+Hu_training = np.array(Hu_training)
+Hu_testing = np.array(Hu_testing)
 
+X_train = Hu_training[:,:-1]  # Splitting training set into atributes and labels
+y_train = Hu_training[:,-1]
+
+X_test = Hu_testing[:,:-1]    # Splitting testing set into atributes and labels
+y_test = Hu_testing[:,-1]
+
+clf = SVC(kernel='sigmoid')                   # Initializing classifier
+
+clf.fit(X_train, y_train)     # Training classifier and calculating the score on test set
+score = accuracy_score(y_test, clf.predict(X_test))
+print(score)
 
 
 
