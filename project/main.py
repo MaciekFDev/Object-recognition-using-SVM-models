@@ -6,6 +6,8 @@ training_images = []     # half of pictures of each object
 testing_images = []      # second half, remaining pictures
 edges_training = []      # analogic variables, but for edges for particular images
 edges_testing = []
+Hu_training = []        # analogic variables, but for hu's invariant moments
+Hu_testing = []
 nr_array = np.arange(72) # array with numbers for randomizing images in both sets
 obj = 'obj'              # variable responsible for navigation between objects' images
                          # Path to folder containing objects' images at local repository
@@ -38,5 +40,15 @@ for i in range(1,11,1):         # loop over particular objects' folders
 
     # Calculating Hu's invariant values for each image
     for k in range(36):
-        
+        temp = np.array(cv2.HuMoments(cv2.moments(edges_training[k][0])).flatten())
+        temp = np.append(temp, [i])
+        Hu_training.append(temp)
+        temp = np.array(cv2.HuMoments(cv2.moments(edges_testing[k][0])).flatten())
+        temp = np.append(temp, [i])
+        Hu_testing.append(temp)
+
+
+
+
+
 
