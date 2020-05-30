@@ -75,7 +75,7 @@ neighbor = KNeighborsClassifier(n_neighbors = 2)
 clf.fit(X_train, y_train)     # Training classifier and calculating the score on test set
 neighbor.fit(X_train, y_train)
 
-score_clf = accuracy_score(y_test, clf.predict(X_test))
+score_clf = accuracy_score(y_test, clf.predict(X_test))  # Calculating accuracy for each classifier
 score_knn = accuracy_score(y_test, neighbor.predict(X_test))
 
 print('Classification accuracy for SVM: ')
