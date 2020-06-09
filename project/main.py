@@ -90,10 +90,10 @@ for j in range(0, 100, 1):    # Testing stage - first image is being comparised 
         y_test_2.append(y_test[l])
 
     score = accuracy_score(y_test_2, clf.predict(X_test_2)) 
-    score_clf.append(score)  # Calculating accuracy for each classification and saving it in array
+    score_clf.append(round(score*100, 2))  # Calculating accuracy for each classification and saving it in array
 
 #for k in range(72): # For displaying images
     #cv2.imshow('', edges_training[k][0])
     #cv2.waitKey()
 
-print('Classification accuracy for SVM: ', score_clf)
+print('Classification accuracy for SVM (in %): ', score_clf)
