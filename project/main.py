@@ -16,6 +16,8 @@ testing_images_ids = []
 X_test_2 = []            # temporary variable for testing stage
 y_test_2 = []
 score_clf = []           # array for holding scores for each single classification
+datamean = []
+datastd = []
 mod = 0                  # modifier, responsible for navigating between objects in feature extraction part
 nr_array = np.arange(0, 356, 5) # array with numbers for randomizing images in both sets
 test_array = np.arange(0, 3601, 36) # array arranged for picking testing classes for svm
@@ -53,6 +55,8 @@ for i in range(1,101,1):        # loop over particular objects' folders
     for k in range(36):
         edges_training.append([cv2.Canny(training_images[k+mod][0],100,200), i])
         edges_testing.append([cv2.Canny(testing_images[k+mod][0],100,200), i])
+        #edges_training.append([training_images[k+mod][0], i])
+        #edges_testing.append([testing_images[k+mod][0], i])
 
     # Calculating Hu's invariant values for each image
     for k in range(36):
@@ -96,4 +100,8 @@ for j in range(0, 100, 1):    # Testing stage - first image is being comparised 
     #cv2.imshow('', edges_training[k][0])
     #cv2.waitKey()
 
-print('Classification accuracy for SVM (in %): ', score_clf)
+datamean.append(np.mean(score_clf))
+datastd.append(np.mean(score_clf))
+
+print('Classification accuracy for SVM (in %): ', score_clf, '\n')
+print('With mean value and standard deviation value: %.2f' % datamean[0], '%.2f' % datastd[0], '\n')
